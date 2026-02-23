@@ -3,489 +3,166 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cuadros Comparativos Técnicos — Infra/OS (2026)</title>
-  <meta name="description" content="Comparativas técnicas profesionales: Workstation vs Servidor, Windows 11 vs Windows Server, Ediciones WS 2025, Windows Server vs Ubuntu Server. Incluye métricas y comandos de verificación." />
+  <title>4 Cuadros Comparativos Técnicos (2026)</title>
   <style>
     :root{
-      --bg0:#eaf7ff;
-      --bg1:#d8f0ff;
-      --ink:#0c2233;
-      --muted:#4a6679;
-      --card:rgba(255,255,255,.78);
-      --stroke:rgba(12,34,51,.14);
-      --shadow: 0 10px 30px rgba(12,34,51,.12);
-      --shadow2: 0 14px 40px rgba(12,34,51,.16);
-      --accent:#17a2ff;
-      --accent2:#2bd4c4;
-      --warn:#ffb020;
-      --good:#2ecc71;
-      --bad:#ff5a67;
+      --bg0:#eaf7ff; --bg1:#d8f0ff; --ink:#0c2233; --muted:#4a6679;
+      --card:rgba(255,255,255,.82); --stroke:rgba(12,34,51,.14);
+      --shadow:0 10px 28px rgba(12,34,51,.12);
+      --accent:#17a2ff; --accent2:#2bd4c4;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
     }
-
     *{box-sizing:border-box}
     body{
-      margin:0;
-      font-family:var(--sans);
-      color:var(--ink);
-      background: radial-gradient(1200px 800px at 10% 10%, var(--bg1), transparent 60%),
-                  radial-gradient(1000px 700px at 90% 20%, #c7f6ff, transparent 55%),
-                  radial-gradient(1000px 800px at 60% 90%, #d7fff6, transparent 55%),
-                  linear-gradient(180deg, var(--bg0), #ffffff);
-      min-height:100vh;
-      overflow-x:hidden;
+      margin:0; font-family:var(--sans); color:var(--ink);
+      background:
+        radial-gradient(1100px 700px at 10% 10%, var(--bg1), transparent 60%),
+        radial-gradient(900px 650px at 90% 20%, #c7f6ff, transparent 55%),
+        radial-gradient(950px 720px at 60% 90%, #d7fff6, transparent 55%),
+        linear-gradient(180deg, var(--bg0), #ffffff);
+      min-height:100vh; overflow-x:hidden;
     }
-
-    /* Fondo dinámico celeste (suave) */
-    .blobs{
-      position:fixed; inset:0; pointer-events:none; z-index:-1;
-      filter: blur(26px) saturate(120%);
-      opacity:.7;
-    }
-    .blob{
-      position:absolute;
-      width:520px; height:520px;
-      border-radius: 46% 54% 56% 44% / 46% 44% 56% 54%;
-      background: radial-gradient(circle at 30% 30%, rgba(23,162,255,.55), rgba(43,212,196,.35) 55%, rgba(255,255,255,0) 70%);
-      animation: float 12s ease-in-out infinite;
-      transform: translate3d(0,0,0);
-    }
-    .blob.b2{
-      width:620px;height:620px;
-      left:62%; top:-18%;
-      background: radial-gradient(circle at 35% 40%, rgba(43,212,196,.55), rgba(23,162,255,.28) 55%, rgba(255,255,255,0) 70%);
-      animation-duration: 15s;
-    }
-    .blob.b1{ left:-12%; top:-10%;}
-    .blob.b3{
-      width:700px;height:700px;
-      left:20%; top:62%;
-      background: radial-gradient(circle at 45% 35%, rgba(23,162,255,.45), rgba(255,176,32,.18) 52%, rgba(255,255,255,0) 72%);
-      animation-duration: 18s;
-    }
-    @keyframes float{
-      0%,100%{ transform: translate(0,0) rotate(0deg) }
-      50%{ transform: translate(30px, -22px) rotate(6deg) }
-    }
-
-    .wrap{ max-width:1180px; margin:0 auto; padding: 32px 18px 80px; }
-
+    .wrap{max-width:1180px;margin:0 auto;padding:28px 16px 70px}
     header{
-      display:flex; gap:18px; align-items:flex-start; justify-content:space-between;
-      padding: 18px 18px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.62));
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      border:1px solid var(--stroke); background:var(--card);
+      border-radius:18px; box-shadow:var(--shadow);
+      padding:16px 16px; display:flex; gap:14px; justify-content:space-between; flex-wrap:wrap;
     }
-    .title{
-      display:flex; flex-direction:column; gap:6px;
-    }
-    h1{ margin:0; font-size: clamp(20px, 2.4vw, 30px); letter-spacing:-.02em; }
-    .sub{ color:var(--muted); margin:0; line-height:1.35; max-width: 780px; }
-
-    .meta{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
-    }
+    h1{margin:0;font-size:clamp(18px,2.4vw,28px);letter-spacing:-.02em}
+    .sub{margin:6px 0 0;color:var(--muted);line-height:1.35;max-width:820px}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
     .pill{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.8);
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12.5px;
-      color: var(--muted);
-      display:flex; gap:8px; align-items:center;
-      box-shadow: 0 6px 18px rgba(12,34,51,.08);
-      white-space:nowrap;
+      border:1px solid var(--stroke); background:rgba(255,255,255,.9);
+      padding:8px 12px;border-radius:999px;font-size:12.5px;color:var(--muted);
+      box-shadow:0 8px 20px rgba(12,34,51,.08); white-space:nowrap;
+      display:flex;gap:8px;align-items:center;
     }
-    .dot{ width:9px;height:9px;border-radius:999px;background:var(--accent); box-shadow: 0 0 0 4px rgba(23,162,255,.16); }
-
-    nav{
-      margin-top: 14px;
-      display:flex; flex-wrap:wrap; gap:10px;
-    }
-    .btn{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.78);
-      border-radius: 12px;
-      padding: 10px 12px;
-      text-decoration:none;
-      color: var(--ink);
-      font-size: 13px;
-      display:inline-flex; gap:10px; align-items:center;
-      box-shadow: 0 8px 22px rgba(12,34,51,.08);
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-    }
-    .btn:hover{
-      transform: translateY(-2px);
-      box-shadow: 0 14px 34px rgba(12,34,51,.12);
-      border-color: rgba(23,162,255,.35);
-    }
-    .btn .k{ font-family:var(--mono); font-size:12px; color:var(--muted); padding:2px 6px; border-radius:8px; border:1px dashed rgba(12,34,51,.18); }
-
+    .dot{width:9px;height:9px;border-radius:999px;background:var(--accent);box-shadow:0 0 0 4px rgba(23,162,255,.14)}
     section{
-      margin-top: 18px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.85), rgba(255,255,255,.62));
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      padding: 18px;
+      margin-top:16px; border:1px solid var(--stroke); background:var(--card);
+      border-radius:18px; box-shadow:var(--shadow); padding:16px;
     }
-
-    .grid2{ display:grid; grid-template-columns: 1.25fr .75fr; gap:14px; }
-    @media (max-width: 940px){ .grid2{ grid-template-columns:1fr; } }
-
-    .card{
-      border:1px solid rgba(12,34,51,.12);
-      background: rgba(255,255,255,.72);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 10px 26px rgba(12,34,51,.08);
-    }
-    .card h3{ margin:0 0 8px; font-size: 16px; letter-spacing:-.01em; }
-    .card p{ margin:0; color:var(--muted); line-height:1.45; }
-
-    .chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 12px; }
+    .titleRow{display:flex;justify-content:space-between;gap:12px;align-items:flex-end;flex-wrap:wrap}
+    .h2{margin:0;font-size:16px;letter-spacing:-.01em}
+    .note{color:var(--muted);font-size:12.5px;margin:6px 0 0}
+    .tableWrap{overflow:auto;border-radius:14px;border:1px solid rgba(12,34,51,.14);background:rgba(255,255,255,.75)}
+    table{width:100%;border-collapse:collapse;min-width:980px;font-size:13.2px;line-height:1.35}
+    th,td{padding:12px 12px;vertical-align:top;border-bottom:1px solid rgba(12,34,51,.10)}
+    th{background:linear-gradient(180deg, rgba(23,162,255,.14), rgba(43,212,196,.08));text-align:left;font-weight:800}
+    tr:last-child td{border-bottom:none}
+    ul{margin:0;padding-left:18px}
+    li{margin:4px 0;color:var(--muted)}
+    .kpi{font-family:var(--mono);font-size:12.3px;color:#0a2a3f}
+    .chipRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
     .chip{
-      border:1px solid rgba(12,34,51,.14);
-      background: rgba(255,255,255,.8);
-      border-radius: 999px;
-      padding: 8px 10px;
-      display:flex; gap:8px; align-items:center;
-      box-shadow: 0 8px 18px rgba(12,34,51,.07);
-      font-size: 12.5px;
-      color: var(--muted);
+      border:1px solid rgba(12,34,51,.14);background:rgba(255,255,255,.9);
+      border-radius:999px;padding:7px 10px;font-size:12.2px;color:var(--muted);
+      box-shadow:0 8px 18px rgba(12,34,51,.07);
     }
-    .badge{
-      font-size:12px; color: var(--ink);
-      padding:2px 8px; border-radius: 999px;
-      border: 1px solid rgba(12,34,51,.12);
-      background: rgba(23,162,255,.12);
-    }
-    .badge.good{ background: rgba(46,204,113,.14); }
-    .badge.warn{ background: rgba(255,176,32,.18); }
-    .badge.bad{ background: rgba(255,90,103,.14); }
-
-    .tableWrap{ overflow:auto; border-radius: 14px; border:1px solid rgba(12,34,51,.14); background: rgba(255,255,255,.7); }
-    table{
-      width:100%;
-      border-collapse: collapse;
-      min-width: 880px;
-      font-size: 13.4px;
-      line-height: 1.35;
-    }
-    th, td{
-      padding: 12px 12px;
-      vertical-align: top;
-      border-bottom: 1px solid rgba(12,34,51,.10);
-    }
-    th{
-      text-align:left;
-      background: linear-gradient(180deg, rgba(23,162,255,.14), rgba(43,212,196,.08));
-      font-weight: 700;
-    }
-    tr:last-child td{ border-bottom: none; }
-    ul{ margin: 0; padding-left: 18px; }
-    li{ margin: 4px 0; color: var(--muted); }
-    .colTitle{
-      font-weight:700; color: var(--ink);
-      display:flex; align-items:center; gap:10px;
-      margin-bottom: 8px;
-    }
-    .tag{
-      font-size: 11.5px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(12,34,51,.12);
-      background: rgba(255,255,255,.75);
-      color: var(--muted);
-      font-family: var(--mono);
-    }
-
-    details{
-      border:1px solid rgba(12,34,51,.14);
-      background: rgba(255,255,255,.74);
-      border-radius: 14px;
-      padding: 12px 12px;
-      box-shadow: 0 10px 26px rgba(12,34,51,.08);
-    }
-    details summary{
-      cursor:pointer; font-weight:700; color:var(--ink);
-      display:flex; align-items:center; gap:10px;
-      list-style:none;
-      user-select:none;
-    }
-    details summary::-webkit-details-marker{ display:none; }
-    .caret{
-      width: 10px; height: 10px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted);
-      transform: rotate(-45deg);
-      transition: transform .15s ease;
-    }
-    details[open] .caret{ transform: rotate(45deg); }
-
-    pre{
-      margin: 12px 0 0;
-      background: rgba(12,34,51,.92);
-      color: #eaf7ff;
-      padding: 12px 12px;
-      border-radius: 14px;
-      overflow:auto;
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: var(--shadow2);
-      font-family: var(--mono);
-      font-size: 12.7px;
-      line-height: 1.45;
-    }
-    .kpiRow{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 12px;
-    }
-    @media (max-width: 980px){ .kpiRow{ grid-template-columns: repeat(2, 1fr);} }
-    @media (max-width: 520px){ .kpiRow{ grid-template-columns: 1fr;} }
-
-    .kpi{
-      border: 1px solid rgba(12,34,51,.14);
-      background: rgba(255,255,255,.78);
-      border-radius: 16px;
-      padding: 12px 12px;
-      box-shadow: 0 10px 26px rgba(12,34,51,.08);
-    }
-    .kpi .t{ font-size: 12px; color: var(--muted); }
-    .kpi .v{ font-size: 18px; font-weight: 800; letter-spacing:-.02em; margin-top: 6px; }
-    .kpi .h{ font-size: 12px; color: var(--muted); margin-top: 6px; line-height:1.35; }
-
-    footer{
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12.5px;
-      text-align:center;
-      padding: 12px 8px;
-    }
-
-    .rightCol{ display:flex; flex-direction:column; gap:12px; }
-    .hr{
-      height:1px; background: rgba(12,34,51,.10);
-      margin: 12px 0;
-    }
+    .chip b{color:var(--ink)}
+    footer{margin-top:16px;color:var(--muted);font-size:12.5px;text-align:center}
   </style>
 </head>
-
 <body>
-  <div class="blobs">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
-  </div>
-
   <div class="wrap">
     <header>
-      <div class="title">
-        <h1>Cuadros Comparativos Técnicos (2026) — Infraestructura y Sistemas Operativos</h1>
-        <p class="sub">
-          Comparativas técnicas con enfoque profesional (arquitectura, rendimiento, disponibilidad, seguridad, licenciamiento y operación).
-          Incluye métricas de referencia + comandos para validar en entornos reales.
-        </p>
-
-        <nav>
-          <a class="btn" href="#wks-vs-srv"><span>🖥️ Workstation vs Servidor</span> <span class="k">#1</span></a>
-          <a class="btn" href="#w11-vs-ess"><span>🪟 Windows 11 vs WS Essentials</span> <span class="k">#2</span></a>
-          <a class="btn" href="#ediciones-ws"><span>📦 Ediciones Windows Server 2025</span> <span class="k">#3</span></a>
-          <a class="btn" href="#ws-vs-ubuntu"><span>🆚 WS Standard vs Ubuntu Server</span> <span class="k">#4</span></a>
-          <a class="btn" href="#comandos"><span>⌨️ Comandos de verificación</span> <span class="k">CLI</span></a>
-        </nav>
+      <div>
+        <h1>4 Cuadros Comparativos Técnicos — Hardware y Sistemas Operativos (2026)</h1>
+        <p class="sub">Formato puntual: cada celda con métricas (GB/TB, Gbps, límites de usuarios, mínimos, precios de referencia) + términos técnicos.</p>
       </div>
-
       <div class="meta">
-        <div class="pill"><span class="dot"></span><span>Enfoque: técnico + medible</span></div>
-        <div class="pill"><span class="dot" style="background:var(--accent2)"></span><span>Salida: HTML para GitHub Pages</span></div>
-        <div class="pill"><span class="dot" style="background:var(--warn)"></span><span>Métricas: CPU/RAM/E/S/Red/HA</span></div>
+        <div class="pill"><span class="dot"></span><span><b>4 cuadros</b> comparativos</span></div>
+        <div class="pill"><span class="dot" style="background:var(--accent2)"></span><span>Métricas & límites</span></div>
+        <div class="pill"><span class="dot" style="background:#ffb020"></span><span>Listo para GitHub Pages</span></div>
       </div>
     </header>
 
-    <!-- Resumen técnico -->
+    <!-- CUADRO 1 -->
     <section>
-      <div class="grid2">
-        <div class="card">
-          <h3>Marco técnico (cómo leer estos cuadros)</h3>
-          <p>
-            Se comparan plataformas por: <b>carga objetivo</b> (interactiva vs concurrente), <b>modelo de operación</b> (usuario vs servicio),
-            <b>RAS</b> (Reliability/Availability/Serviceability), <b>cuellos de botella</b> (CPU, memoria, E/S, red), y <b>costo total</b> (licencia + HW + energía + operación).
-          </p>
-
-          <div class="chips" aria-label="métricas clave">
-            <div class="chip"><span class="badge">CPU</span><span>IPC vs núcleos</span></div>
-            <div class="chip"><span class="badge">RAM</span><span>ECC, RDIMM/LRDIMM, NUMA</span></div>
-            <div class="chip"><span class="badge">E/S</span><span>IOPS, latencia, RAID/Cache</span></div>
-            <div class="chip"><span class="badge">NET</span><span>1/10/25/40/100GbE, VLAN, QoS</span></div>
-            <div class="chip"><span class="badge">OPS</span><span>SLA/SLO, monitoreo, HA</span></div>
-          </div>
+      <div class="titleRow">
+        <div>
+          <p class="h2">Cuadro 1 — Workstation vs Servidor de red (Network Server)</p>
+          <p class="note">Enfoque: CPU/RAM/E/S/Red + operación 24/7.</p>
         </div>
-
-        <div class="rightCol">
-          <div class="kpiRow">
-            <div class="kpi">
-              <div class="t">Throughput 10GbE</div>
-              <div class="v">≈ 1.25 GB/s</div>
-              <div class="h">Referencial teórico (10 Gbit/s ÷ 8). Real depende de overhead/MTU/CPU.</div>
-            </div>
-            <div class="kpi">
-              <div class="t">Latencia NVMe local</div>
-              <div class="v">μs–ms</div>
-              <div class="h">Acceso local típicamente menor que storage remoto; depende de cola/QD y controladora.</div>
-            </div>
-            <div class="kpi">
-              <div class="t">Objetivo Server</div>
-              <div class="v">24/7</div>
-              <div class="h">Operación continua: redundancia + gestión fuera de banda + ventanas de mantenimiento.</div>
-            </div>
-            <div class="kpi">
-              <div class="t">Modelo de decisión</div>
-              <div class="v">TCO</div>
-              <div class="h">Licencias + hardware + energía + soporte + tiempo operativo + riesgo.</div>
-            </div>
-          </div>
-
-          <details>
-            <summary><span class="caret"></span>Checklist rápido (qué medir antes de decidir)</summary>
-            <ul>
-              <li><b>CPU:</b> % de uso, colas, contexto, frecuencia sostenida (no solo boost).</li>
-              <li><b>RAM:</b> working set, page faults, presión de memoria y NUMA locality.</li>
-              <li><b>E/S:</b> IOPS, latencia p95/p99, colas (QD), cache hit rate.</li>
-              <li><b>Red:</b> throughput sostenido, pérdida, jitter, colas y MTU/VLAN.</li>
-              <li><b>Operación:</b> backup/restore, HA, RPO/RTO, monitoreo y alertas.</li>
-            </ul>
-          </details>
+        <div class="chipRow">
+          <span class="chip"><b>Red:</b> 1–10 Gbps vs 10/25/40/100 Gbps</span>
+          <span class="chip"><b>Operación:</b> usuario vs 24/7</span>
+          <span class="chip"><b>HW:</b> NVMe local vs RAID + Hot-Swap</span>
         </div>
       </div>
-    </section>
 
-    <!-- 1: Workstation vs Server -->
-    <section id="wks-vs-srv">
-      <div class="card">
-        <h3>#1 — Estación de trabajo (Workstation) vs Servidor de red (Network Server)</h3>
-        <p>Comparación por arquitectura, dimensionamiento y operación.</p>
-      </div>
-
-      <div class="tableWrap" role="region" aria-label="Tabla Workstation vs Servidor">
+      <div class="tableWrap">
         <table>
           <thead>
             <tr>
-              <th style="width:22%">Criterio técnico</th>
-              <th style="width:39%">
-                <div class="colTitle">Estación de trabajo (Workstation) <span class="tag">interactiva</span></div>
-              </th>
-              <th style="width:39%">
-                <div class="colTitle">Servidor de red (Network Server) <span class="tag">concurrencia</span></div>
-              </th>
+              <th style="width:22%">Criterio</th>
+              <th style="width:39%">Workstation</th>
+              <th style="width:39%">Servidor de red</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>Procesadores y núcleos</b></td>
+              <td><b>CPU (límite SO / enfoque)</b></td>
               <td>
                 <ul>
-                  <li>CPU de alto IPC (Intel Core i7/i9, AMD Ryzen 7/9) o HEDT (Xeon W / Threadripper) según carga.</li>
-                  <li>1–2 sockets típicos; prioriza rendimiento por hilo y respuesta interactiva.</li>
-                  <li>Aceleración: GPU profesional (NVIDIA RTX/Quadro, AMD Radeon Pro) para CAD/IA/render.</li>
-                  <li>Windows 11 Pro: hasta 2 CPU físicas; Pro for Workstations: hasta 4 (límite por edición).</li>
+                  <li><span class="kpi">Windows 11 Pro:</span> hasta <b>2</b> procesadores físicos y <b>256</b> núcleos lógicos.</li>
+                  <li><span class="kpi">Win 11 Pro WS:</span> hasta <b>4</b> procesadores físicos y <b>256</b> núcleos lógicos.</li>
+                  <li>Optimiza rendimiento por usuario (interactivo).</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>IPC / Latencia UI</span></div>
-                  <div class="chip"><span class="badge warn">Riesgo</span><span>Thermal throttling en render largo</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>CPU orientada a throughput (Intel Xeon Scalable / AMD EPYC) con muchos núcleos y gran caché L3.</li>
-                  <li>1–2 sockets (SMB) o más en enterprise; foco en colas de E/S y concurrencia.</li>
-                  <li>Soporte fuerte de virtualización (VT-x/AMD-V, IOMMU), SR-IOV y gran ancho de banda PCIe.</li>
-                  <li>Operación 24/7: firmware con perfiles RAS (Reliability/Availability/Serviceability).</li>
+                  <li>Plataformas <b>1–2 sockets</b> con alta densidad de núcleos.</li>
+                  <li>Optimiza <b>cargas concurrentes</b> multiusuario/servicios.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Throughput agregado</span></div>
-                  <div class="chip"><span class="badge good">RAS</span><span>Correctivo + preventivo</span></div>
-                </div>
               </td>
             </tr>
 
             <tr>
-              <td><b>Memoria (RAM)</b></td>
+              <td><b>RAM (límite y rango típico)</b></td>
               <td>
                 <ul>
-                  <li>DDR4/DDR5; ECC recomendado si la plataforma lo soporta.</li>
-                  <li>Capacidad típica: 32–128 GB; IA/CAD pesada: 128–512 GB.</li>
-                  <li>Windows 11 (referencia por edición): Home 128 GB; Pro 2 TB; Enterprise/Pro WS 6 TB.</li>
+                  <li><span class="kpi">Win 11 Home:</span> <b>128 GB</b></li>
+                  <li><span class="kpi">Win 11 Pro:</span> <b>2 TB</b></li>
+                  <li><span class="kpi">Win 11 Enterprise/Pro WS:</span> <b>6 TB</b></li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Page faults / Working set</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>ECC RDIMM/LRDIMM en escenarios críticos; enfoque en corrección y estabilidad.</li>
-                  <li>Capacidad típica: 128 GB–2+ TB (virtualización, BD, cachés de archivos).</li>
-                  <li>Dimensionamiento por canales + NUMA awareness para múltiples VM/servicios.</li>
+                  <li>Implementación común: desde <b>128 GB</b> hasta <b>varios TB</b> (virtualización/BD/servicios).</li>
+                  <li>Preferible <b>ECC</b> para estabilidad.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>NUMA locality / Cache hit</span></div>
-                  <div class="chip"><span class="badge warn">Riesgo</span><span>Swap/paging por oversubscription</span></div>
-                </div>
               </td>
             </tr>
 
             <tr>
-              <td><b>Almacenamiento de alto rendimiento</b></td>
+              <td><b>Almacenamiento</b></td>
               <td>
                 <ul>
-                  <li>SSD NVMe (PCIe 4.0/5.0) para baja latencia local; IOPS altos aleatorios.</li>
-                  <li>Común: NVMe principal + SSD/HDD secundario para datasets/proyectos.</li>
-                  <li>Mitigación: backup/sync (repos, shares, snapshots) ante fallo de disco.</li>
+                  <li><b>SSD NVMe</b> para baja latencia local.</li>
+                  <li>Uso típico: proyectos/edición/compilación.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Latencia p95/p99</span></div>
-                  <div class="chip"><span class="badge warn">Riesgo</span><span>Sin RAID → riesgo de pérdida</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>RAID HW (0/1/5/6/10) o HBA+SW; discos Hot-Swap SAS/SATA/NVMe.</li>
-                  <li>Cache de controladora (BBU/Flash-backed) para write-back seguro.</li>
-                  <li>Diseño típico: espejo SO + RAID10/6 para datos; opción SDS/cluster.</li>
+                  <li><b>RAID</b> + <b>Hot Swap</b> + controladoras empresariales.</li>
+                  <li>Diseño para continuidad y reemplazo sin parada.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">HA</span><span>Hot-Swap + RAID + cache segura</span></div>
-                  <div class="chip"><span class="badge">KPI</span><span>IOPS sostenidos</span></div>
-                </div>
               </td>
             </tr>
 
             <tr>
-              <td><b>Red y throughput</b></td>
+              <td><b>Red (throughput)</b></td>
               <td>
                 <ul>
-                  <li>1GbE estándar; 2.5/10GbE para trabajo profesional con NAS/servidor.</li>
-                  <li>Wi-Fi 6/6E/7 para movilidad; latencia depende del entorno RF.</li>
-                  <li>Tráfico: repositorios, videollamadas, acceso a shares, sincronización.</li>
+                  <li>Red típica: <b>1–10 Gbps</b> (estación individual).</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Jitter / Latencia</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>Múltiples NIC (10/25/40/100GbE) con teaming/bonding para redundancia.</li>
-                  <li>VLAN/Trunking, QoS y segmentación (DMZ/LAN/Storage) para seguridad/perf.</li>
-                  <li>Offloads: RSS, checksum, RDMA (según NIC) para throughput sostenido.</li>
+                  <li>Múltiples NIC: <b>10/25/40/100 Gbps</b> para tráfico agregado.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">Resiliencia</span><span>Redundancia L2/L3</span></div>
-                  <div class="chip"><span class="badge">KPI</span><span>Throughput sostenido</span></div>
-                </div>
               </td>
             </tr>
 
@@ -493,308 +170,204 @@
               <td><b>Disponibilidad y gestión</b></td>
               <td>
                 <ul>
-                  <li>Sesión interactiva; mantenimiento según horario del usuario.</li>
-                  <li>Gestión local y monitoreo básico; continuidad personal (UPS + backup).</li>
-                  <li>Objetivo: productividad individual (no SLA formal).</li>
+                  <li>Optimizada para productividad individual.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge warn">OPS</span><span>Sin BMC fuera de banda</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>Operación 24/7: fuentes redundantes, ventilación redundante, RAID/Hot-Swap.</li>
-                  <li>Gestión fuera de banda (iDRAC/iLO/IPMI/BMC): consola remota y telemetría.</li>
-                  <li>Enfoque: HA, ventanas de mantenimiento, SLO/SLA del servicio.</li>
+                  <li>Operación <b>24/7</b> + gestión fuera de banda (<b>BMC</b>).</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">SLA</span><span>Disponibilidad como objetivo</span></div>
-                  <div class="chip"><span class="badge">KPI</span><span>MTTR / MTBF</span></div>
-                </div>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 2: Windows 11 vs WS Essentials -->
-    <section id="w11-vs-ess">
-      <div class="card">
-        <h3>#2 — Windows 11 (Cliente) vs Windows Server 2025 Essentials (Servidor)</h3>
-        <p>Comparación por rol de plataforma, servicios, escalabilidad y requisitos.</p>
+    <!-- CUADRO 2 -->
+    <section>
+      <div class="titleRow">
+        <div>
+          <p class="h2">Cuadro 2 — Windows 11 vs Windows Server 2025 Essentials</p>
+          <p class="note">Enfoque: rol, mínimos, y escala (usuarios/dispositivos).</p>
+        </div>
+        <div class="chipRow">
+          <span class="chip"><b>Min:</b> 4 GB/64 GB (W11)</span>
+          <span class="chip"><b>Min:</b> 2 GB Core / 4 GB GUI + 32 GB disk (WS)</span>
+          <span class="chip"><b>Essentials:</b> 25 usuarios / 50 dispositivos</span>
+        </div>
       </div>
 
-      <div class="tableWrap" role="region" aria-label="Tabla Windows 11 vs Windows Server Essentials">
+      <div class="tableWrap">
         <table>
           <thead>
             <tr>
-              <th style="width:22%">Criterio técnico</th>
-              <th style="width:39%">
-                <div class="colTitle">Windows 11 (Client OS) <span class="tag">endpoint</span></div>
-              </th>
-              <th style="width:39%">
-                <div class="colTitle">Windows Server 2025 Essentials (Server OS) <span class="tag">SMB</span></div>
-              </th>
+              <th style="width:22%">Criterio</th>
+              <th style="width:39%">Windows 11 (Client OS)</th>
+              <th style="width:39%">Windows Server 2025 Essentials (Server OS)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>Rol de plataforma</b></td>
+              <td><b>Rol</b></td>
               <td>
                 <ul>
-                  <li>SO cliente (endpoint) optimizado para experiencia de usuario final.</li>
-                  <li>Prioriza UI, drivers de periféricos, apps de escritorio y compatibilidad general.</li>
-                  <li>Gestión: MDM/Intune/GPO (según entorno) orientado a parque de PCs.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Tiempo de arranque / UX</span></div>
-                </div>
-              </td>
-              <td>
-                <ul>
-                  <li>SO servidor para consolidar servicios de red y aplicaciones en un host dedicado.</li>
-                  <li>Diseño para rol de servicio: dominio, archivos, impresión, apps internas.</li>
-                  <li>Operación: mantenimiento programado, parches, backup/restore, auditoría.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">OPS</span><span>Servicio centralizado</span></div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td><b>Servicios principales</b></td>
-              <td>
-                <ul>
-                  <li>Productividad, navegación, multimedia, herramientas de trabajo y desarrollo.</li>
-                  <li>Cliente de red: acceso a shares, apps corporativas, VPN, RDP (cliente).</li>
-                  <li>Seguridad: Defender, TPM, políticas de endpoint (según edición/gestión).</li>
+                  <li>Endpoint (usuario final): productividad y apps.</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Servicios de dominio y autenticación central (p. ej., AD DS según despliegue), DNS/DHCP (según rol).</li>
-                  <li>Servicios de archivos, impresoras, perfiles, y compartición controlada.</li>
-                  <li>Administración: roles/feature, control de acceso, logging y compliance.</li>
+                  <li>Núcleo de servicios: identidad, autenticación, archivos, impresión, administración.</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>Parámetros de memoria</b></td>
+              <td><b>RAM (referencias)</b></td>
               <td>
                 <ul>
-                  <li>Memoria máxima depende de edición: Home 128 GB; Pro 2 TB; Enterprise/Pro WS 6 TB (referencia).</li>
-                  <li>En clientes: la RAM suele dimensionarse por apps y multitarea del usuario.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Commit / Hard faults</span></div>
-                </div>
-              </td>
-              <td>
-                <ul>
-                  <li>Dimensionamiento por concurrencia: usuarios, servicios simultáneos, cachés y VM (si aplica).</li>
-                  <li>En server: ECC recomendado/esperado; se mide p95/p99 de latencia de servicios.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>Latencia p95/p99 del servicio</span></div>
-                  <div class="chip"><span class="badge warn">Riesgo</span><span>RAM insuficiente → colas y timeouts</span></div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td><b>Requisitos mínimos</b></td>
-              <td>
-                <ul>
-                  <li>Referencia típica: 4 GB RAM y 64 GB de almacenamiento (más requisitos de plataforma como TPM según versión).</li>
-                  <li>Driver stack y compatibilidad periférica son críticos.</li>
+                  <li>Según edición: <b>128 GB</b> / <b>2 TB</b> / <b>6 TB</b>.</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Instalación mínima típica: 2 GB RAM (Server Core) o 4 GB (GUI) según despliegue.</li>
-                  <li>Enfoque: estabilidad + servicios; se prioriza disco/RAID y backup.</li>
+                  <li>Orientado a carga sostenida multiusuario (dimensionado por concurrencia).</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>Escala organizacional</b></td>
+              <td><b>Mínimos de instalación</b></td>
               <td>
                 <ul>
-                  <li>Escala por parque de equipos; administración de endpoints y apps por dispositivo/usuario.</li>
-                  <li>El “core” de la organización suele vivir en servidores (identidad/archivos/apps).</li>
+                  <li><b>4 GB RAM</b> + <b>64 GB</b> almacenamiento (referencia mínima).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Orientado a pequeña empresa: implementación rápida + administración simplificada.</li>
-                  <li>Referencia funcional típica: límites de usuarios/dispositivos (ej.: 25 usuarios / 50 dispositivos).</li>
+                  <li><b>Server Core:</b> <b>2 GB RAM</b></li>
+                  <li><b>GUI:</b> recomendado <b>4 GB RAM</b></li>
+                  <li><b>Disco mínimo:</b> <b>32 GB</b></li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge warn">Límite</span><span>SMB: crecimiento controlado</span></div>
-                </div>
               </td>
             </tr>
 
+            <tr>
+              <td><b>Escala</b></td>
+              <td>
+                <ul>
+                  <li>Equipo individual / parque cliente empresarial.</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Límite funcional típico: <b>25</b> usuarios y <b>50</b> dispositivos.</li>
+                </ul>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 3: Ediciones Windows Server -->
-    <section id="ediciones-ws">
-      <div class="card">
-        <h3>#3 — Comparativa de ediciones (Windows Server 2025): Essentials vs Standard vs Datacenter vs Azure Edition</h3>
-        <p>Comparación técnica enfocada en licenciamiento, virtualización, acceso y costo (TCO).</p>
+    <!-- CUADRO 3 -->
+    <section>
+      <div class="titleRow">
+        <div>
+          <p class="h2">Cuadro 3 — Ediciones Windows Server 2025 (Essentials / Standard / Datacenter / Azure Edition)</p>
+          <p class="note">Enfoque: licenciamiento, virtualización y dato concreto de costo.</p>
+        </div>
+        <div class="chipRow">
+          <span class="chip"><b>Standard:</b> core-based + CAL</span>
+          <span class="chip"><b>Datacenter:</b> alta densidad VM</span>
+          <span class="chip"><b>Precio ref:</b> 16 cores + 10 CAL ≈ 1,848 USD</span>
+        </div>
       </div>
 
-      <div class="tableWrap" role="region" aria-label="Tabla Ediciones Windows Server">
-        <table style="min-width: 1020px;">
+      <div class="tableWrap">
+        <table style="min-width:1100px">
           <thead>
             <tr>
-              <th style="width:14%">Edición</th>
-              <th style="width:22%">Licenciamiento</th>
-              <th style="width:22%">Virtualización</th>
-              <th style="width:20%">Acceso</th>
-              <th style="width:22%">Costo y dato concreto</th>
+              <th style="width:16%">Edición</th>
+              <th style="width:28%">Licenciamiento</th>
+              <th style="width:28%">Virtualización</th>
+              <th style="width:28%">Dato numérico / costo</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>WS 2025 Essentials</b></td>
+              <td><b>Essentials</b></td>
               <td>
                 <ul>
-                  <li>Orientado a pequeña empresa; distribución frecuente vía OEM/retail según canal.</li>
-                  <li>Implementación rápida y administración simplificada.</li>
-                  <li>Menor complejidad que Standard/Datacenter.</li>
+                  <li>Esquema SMB (frecuente vía <b>OEM</b>).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Capacidades más restringidas que ediciones superiores.</li>
-                  <li>Adecuado para pocos servicios y baja densidad de VM.</li>
+                  <li>Más limitada que Standard/Datacenter.</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Límites funcionales típicos: 25 usuarios / 50 dispositivos (referencia por canal).</li>
-                  <li>Útil cuando el crecimiento es predecible.</li>
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  <li>Costo depende de canal (OEM vs retail) y región.</li>
-                  <li>Decisión recomendada si el alcance es SMB y no se proyecta alta densidad de VM.</li>
+                  <li>Referencia funcional: <b>25</b> usuarios / <b>50</b> dispositivos.</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>WS 2025 Standard</b></td>
+              <td><b>Standard</b></td>
               <td>
                 <ul>
-                  <li>Licenciamiento por núcleos físicos (core-based); mínimos por servidor según política.</li>
-                  <li>Requiere planificación de CAL (usuario o dispositivo) por escenario.</li>
-                  <li>Base típica para on-prem tradicional.</li>
+                  <li><b>Core-Based</b> + <b>CAL</b> (usuario/dispositivo).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Derechos de virtualización típicos: hasta 2 VM/OSE por host con licencia completa (reglas Microsoft).</li>
-                  <li>Óptimo para 0–2 VM por host o densidad baja.</li>
+                  <li>Virtualización moderada (adecuado para despliegues controlados).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Acceso a servicios de Windows Server usualmente requiere CAL.</li>
-                  <li>Roles adicionales (RDS, SQL Server, etc.) pueden requerir licencias separadas.</li>
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  <li>Referencia comercial orientativa (variable): 16 cores + 10 CAL ~ 1,848 USD (dato de referencia).</li>
-                  <li>El costo real depende de cores, CAL y acuerdos.</li>
+                  <li>Referencia comercial: <b>16 cores + 10 CAL ≈ 1,848 USD</b> (variable por región).</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>WS 2025 Datacenter</b></td>
+              <td><b>Datacenter</b></td>
               <td>
                 <ul>
-                  <li>Licenciamiento por núcleos; orientado a virtualización masiva.</li>
-                  <li>CAL aplican para acceso según roles/uso.</li>
-                  <li>Se justifica cuando la densidad de VM crece (mejor TCO).</li>
+                  <li><b>Core-Based</b> (canal empresarial; cotización).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Derechos de virtualización típicos: ilimitadas VM/OSE sobre hosts licenciados (reglas Microsoft).</li>
-                  <li>Recomendado para clusters, alta automatización y múltiples workloads.</li>
+                  <li>Alta densidad de VM (optimiza crecimiento).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Acceso mediante CAL + cumplimiento (auditoría, segregación, roles).</li>
-                  <li>Gestión frecuente con herramientas de observabilidad y automatización.</li>
-                </ul>
-              </td>
-              <td>
-                <ul>
-                  <li>Precio suele ser por cotización (contrato, región, canal, cores).</li>
-                  <li>Se optimiza por volumen y proyección de crecimiento.</li>
+                  <li>Precio final depende de región/contrato/volumen de núcleos.</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>WS Azure Edition</b></td>
+              <td><b>Azure Edition</b></td>
               <td>
                 <ul>
-                  <li>Enfoque híbrido/nube con capacidades cloud-integrated (según elegibilidad).</li>
-                  <li>Modelo ligado a suscripción/servicios; integración con Azure Arc en escenarios.</li>
-                  <li>Orientado a operación continua y administración centralizada.</li>
+                  <li>Enfoque híbrido (condiciones por servicio).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Optimizado para despliegues híbridos y automatización (IaC, políticas, observabilidad).</li>
-                  <li>Útil cuando los workloads alternan on-prem y nube.</li>
+                  <li>Optimizada para automatización y nube híbrida.</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Condiciones dependen del servicio contratado y el marco híbrido.</li>
-                  <li>Acceso/identidad suele integrarse con servicios cloud.</li>
+                  <li>Costo: <b>pago por consumo</b> (compute + storage + servicios).</li>
                 </ul>
-              </td>
-              <td>
-                <ul>
-                  <li>Facturación típica por consumo (compute, storage, red, servicios).</li>
-                  <li>Costo depende de tamaño de VM, horas, discos y tráfico.</li>
-                </ul>
-              </td>
-            </tr>
-
-            <tr>
-              <td><b>Guía de decisión</b></td>
-              <td colspan="4">
-                <ul>
-                  <li><b>Criterio clave:</b> proyección de VM/containers, requisitos de HA, y modelo operativo (on-prem / híbrido).</li>
-                  <li><b>Standard:</b> menor CAPEX inicial; mejor si la densidad de VM es baja o controlada.</li>
-                  <li><b>Datacenter:</b> optimiza TCO cuando la densidad de VM crece y se automatiza.</li>
-                  <li><b>Cumplimiento:</b> CAL, auditoría, seguridad, segregación de funciones (SoD) y licencias por rol.</li>
-                  <li><b>Decisión TCO:</b> licencias + hardware + energía + soporte + operación + riesgo.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">TCO</span><span>CAPEX + OPEX + Riesgo</span></div>
-                  <div class="chip"><span class="badge good">Escala</span><span>VM density driven</span></div>
-                  <div class="chip"><span class="badge warn">Compliance</span><span>CAL/roles/auditoría</span></div>
-                </div>
               </td>
             </tr>
 
@@ -803,131 +376,84 @@
       </div>
     </section>
 
-    <!-- 4: Windows Server vs Ubuntu Server -->
-    <section id="ws-vs-ubuntu">
-      <div class="card">
-        <h3>#4 — Windows Server 2025 Standard vs Ubuntu Server 24.04.3 LTS</h3>
-        <p>Comparación técnica por costo/licenciamiento, automatización, seguridad, operación y ecosistema.</p>
+    <!-- CUADRO 4 -->
+    <section>
+      <div class="titleRow">
+        <div>
+          <p class="h2">Cuadro 4 — Windows Server 2025 Standard vs Ubuntu Server 24.04.3 LTS</p>
+          <p class="note">Enfoque: licencia/TCO, soporte y perfil técnico.</p>
+        </div>
+        <div class="chipRow">
+          <span class="chip"><b>WS:</b> cores + CAL</span>
+          <span class="chip"><b>Ubuntu LTS:</b> 5 años soporte estándar</span>
+          <span class="chip"><b>TCO:</b> licencia vs operación</span>
+        </div>
       </div>
 
-      <div class="tableWrap" role="region" aria-label="Tabla Windows Server Standard vs Ubuntu Server LTS">
+      <div class="tableWrap">
         <table>
           <thead>
             <tr>
-              <th style="width:22%">Criterio técnico</th>
-              <th style="width:39%">
-                <div class="colTitle">Windows Server 2025 Standard <span class="tag">enterprise on-prem</span></div>
-              </th>
-              <th style="width:39%">
-                <div class="colTitle">Ubuntu Server 24.04.3 LTS <span class="tag">linux / open ecosystem</span></div>
-              </th>
+              <th style="width:22%">Criterio</th>
+              <th style="width:39%">Windows Server 2025 Standard</th>
+              <th style="width:39%">Ubuntu Server 24.04.3 LTS</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><b>Licenciamiento y costo</b></td>
+              <td><b>Modelo de licencia</b></td>
               <td>
                 <ul>
-                  <li>Licenciamiento core-based + CAL para acceso (según rol/uso).</li>
-                  <li>Costos adicionales típicos por roles (RDS, SQL Server, etc.) si aplican.</li>
-                  <li>Modelo de soporte por contrato/canal; útil en entornos Microsoft.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge warn">Costo</span><span>Depende de cores + CAL</span></div>
-                </div>
-              </td>
-              <td>
-                <ul>
-                  <li>Distribución libre; costos suelen estar en soporte (Ubuntu Pro), operación y herramientas.</li>
-                  <li>Ideal para reducir CAPEX de licencias cuando hay capacidad técnica interna.</li>
-                  <li>Amplio ecosistema DevOps/Cloud-native.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">Costo</span><span>Licencia base = 0 (típico)</span></div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td><b>Virtualización y contenedores</b></td>
-              <td>
-                <ul>
-                  <li>Hyper-V como stack integrado; soporte sólido para Windows workloads.</li>
-                  <li>Derechos de virtualización (Standard) típicos: hasta 2 VM/OSE por licencia completa (reglas).</li>
-                  <li>Buen fit cuando el stack es Microsoft end-to-end.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">KPI</span><span>VM density limitada por licenciamiento</span></div>
-                </div>
-              </td>
-              <td>
-                <ul>
-                  <li>KVM/QEMU/LXD, Docker/Containerd, Kubernetes (ecosistema amplio).</li>
-                  <li>Alta flexibilidad para microservicios, IaC, CI/CD y clustering.</li>
-                  <li>Escala horizontal frecuente (cloud patterns) con menor fricción de licencias.</li>
-                </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">Escala</span><span>Cloud-native friendly</span></div>
-                </div>
-              </td>
-            </tr>
-
-            <tr>
-              <td><b>Seguridad y hardening</b></td>
-              <td>
-                <ul>
-                  <li>Integración con AD, GPO, Defender y auditoría central.</li>
-                  <li>Gestión de parches y compliance típico en organizaciones Windows.</li>
-                  <li>Enfoque fuerte en control de identidad y políticas corporativas.</li>
+                  <li>Propietario: <b>por núcleos</b> + <b>CAL</b>.</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Hardening por configuración (SSH, firewall, PAM), AppArmor, logging y auditoría.</li>
-                  <li>Buenas prácticas: mínimos privilegios, rotación de llaves, segmentación de red.</li>
-                  <li>Observabilidad y automatización muy comunes (Prometheus/Grafana, etc.).</li>
+                  <li>Sistema base: licencia libre; soporte empresarial opcional.</li>
                 </ul>
               </td>
             </tr>
 
             <tr>
-              <td><b>Operación y automatización</b></td>
+              <td><b>Costo total (enfoque)</b></td>
               <td>
                 <ul>
-                  <li>Administración vía herramientas Microsoft; automatización con PowerShell/DSC.</li>
-                  <li>Integración fuerte con entornos Windows y políticas corporativas.</li>
-                  <li>Recomendado si el personal y procesos ya están en Microsoft.</li>
+                  <li>Mayor costo inicial por licencia, fuerte integración Microsoft.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge">OPS</span><span>PowerShell/DSC</span></div>
-                </div>
               </td>
               <td>
                 <ul>
-                  <li>Automatización nativa con bash/systemd + Ansible/Terraform (muy usado en DevOps).</li>
-                  <li>Operación “infra as code” simplifica escalado y recuperación.</li>
-                  <li>Buen fit para pipelines CI/CD y despliegues repetibles.</li>
+                  <li>Menor barrera en licencia; más peso en operación técnica/automatización.</li>
                 </ul>
-                <div class="chips">
-                  <div class="chip"><span class="badge good">IaC</span><span>Ansible/Terraform</span></div>
-                </div>
               </td>
             </tr>
 
             <tr>
-              <td><b>Ecosistema y compatibilidad</b></td>
+              <td><b>Soporte</b></td>
               <td>
                 <ul>
-                  <li>Compatibilidad excelente con apps Microsoft (AD, Exchange/servicios según arquitectura, etc.).</li>
-                  <li>Excelente integración con endpoints Windows y herramientas corporativas.</li>
-                  <li>Vendor support claro en stack Microsoft.</li>
+                  <li>Ciclo de vida según política oficial Microsoft (familia Server 2025).</li>
                 </ul>
               </td>
               <td>
                 <ul>
-                  <li>Soporta una gran parte de stacks web, BD, contenedores, microservicios y tooling.</li>
-                  <li>Muy usado en cloud y servidores web; alta compatibilidad con estándares abiertos.</li>
-                  <li>Curva de aprendizaje depende del equipo y el nivel de automatización.</li>
+                  <li><b>LTS:</b> <b>5 años</b> de mantenimiento estándar de seguridad.</li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr>
+              <td><b>Integración / perfil</b></td>
+              <td>
+                <ul>
+                  <li>Fortaleza: <b>AD</b>, <b>GPO</b>, <b>PowerShell</b>.</li>
+                  <li>Recomendado: organizaciones centradas en ecosistema Microsoft.</li>
+                </ul>
+              </td>
+              <td>
+                <ul>
+                  <li>Fortaleza: <b>CLI</b>, contenedores y cloud-native.</li>
+                  <li>Recomendado: apertura, automatización y eficiencia de licenciamiento.</li>
                 </ul>
               </td>
             </tr>
@@ -935,113 +461,11 @@
           </tbody>
         </table>
       </div>
-    </section>
-
-    <!-- Comandos -->
-    <section id="comandos">
-      <div class="card">
-        <h3>⌨️ Comandos técnicos para medir y validar (CPU/RAM/E/S/Red/Servicios)</h3>
-        <p>Estos comandos te permiten convertir el cuadro comparativo en evidencia medible (auditable) para tu exposición.</p>
-      </div>
-
-      <div class="grid2" style="margin-top:12px;">
-        <details open>
-          <summary><span class="caret"></span>Windows (PowerShell) — inventario, rendimiento, red</summary>
-          <pre><code># Inventario base (CPU/RAM/OS)
-Get-ComputerInfo | Select-Object OsName, OsVersion, CsSystemType, CsTotalPhysicalMemory
-
-# CPU (núcleos/hilos) + frecuencia
-Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors, MaxClockSpeed
-
-# Memoria (presión)
-Get-Counter '\Memory\Available MBytes','\Memory\Pages/sec' -SampleInterval 1 -MaxSamples 10
-
-# Disco (latencia/colas) - counters típicos
-Get-Counter '\PhysicalDisk(_Total)\Avg. Disk sec/Read','\PhysicalDisk(_Total)\Avg. Disk sec/Write','\PhysicalDisk(_Total)\Current Disk Queue Length' `
-  -SampleInterval 1 -MaxSamples 10
-
-# Red (uso por interfaz)
-Get-Counter '\Network Interface(*)\Bytes Total/sec' -SampleInterval 1 -MaxSamples 5
-
-# Servicios críticos (ejemplo)
-Get-Service | Where-Object {$_.Status -eq 'Running'} | Select-Object -First 20</code></pre>
-        </details>
-
-        <details>
-          <summary><span class="caret"></span>Linux (Ubuntu Server) — inventario, E/S, red, servicios</summary>
-          <pre><code># CPU / RAM / kernel
-lscpu
-free -h
-uname -a
-
-# Discos y FS
-lsblk -o NAME,SIZE,TYPE,MOUNTPOINT,FSTYPE
-df -h
-
-# Red: interfaces y rutas
-ip a
-ip r
-ss -tulpn | head -n 40
-
-# Servicios systemd
-systemctl --failed
-systemctl status ssh --no-pager
-
-# Métricas rápidas de carga
-uptime
-vmstat 1 5
-iostat -xz 1 5   # requiere: sudo apt install -y sysstat</code></pre>
-        </details>
-      </div>
-
-      <div class="hr"></div>
-
-      <details>
-        <summary><span class="caret"></span>Benchmark de E/S (IOPS y latencia) — FIO (Linux)</summary>
-        <pre><code># Instalar fio
-sudo apt update && sudo apt install -y fio
-
-# 4K random read (IOPS/latencia): 60s
-fio --name=randread4k --filename=fio_testfile --size=2G --time_based --runtime=60 \
-    --ioengine=libaio --direct=1 --bs=4k --rw=randread --iodepth=32 --numjobs=4 \
-    --group_reporting
-
-# 4K random write
-fio --name=randwrite4k --filename=fio_testfile --size=2G --time_based --runtime=60 \
-    --ioengine=libaio --direct=1 --bs=4k --rw=randwrite --iodepth=32 --numjobs=4 \
-    --group_reporting</code></pre>
-      </details>
-
-      <details>
-        <summary><span class="caret"></span>Prueba de throughput de red — iPerf3 (Windows/Linux)</summary>
-        <pre><code># Linux: instalar
-sudo apt update && sudo apt install -y iperf3
-
-# Servidor (en el host servidor)
-iperf3 -s
-
-# Cliente (desde workstation o nodo)
-iperf3 -c IP_DEL_SERVIDOR -P 4 -t 20
-
-# Nota: usa -R para probar descarga desde servidor hacia cliente:
-iperf3 -c IP_DEL_SERVIDOR -P 4 -t 20 -R</code></pre>
-      </details>
     </section>
 
     <footer>
-      Hecho para exposición técnica (2026). Recomendación: acompaña estos cuadros con mediciones reales (capturas de counters / outputs CLI) para sustentar con evidencia.
+      Datos técnicos y límites tomados de tu documento base (2026). Presentación puntual para exposición y GitHub Pages.
     </footer>
   </div>
-
-  <script>
-    // UX: si llegas con hash, hace scroll suave
-    (function(){
-      const hash = window.location.hash;
-      if(!hash) return;
-      const el = document.querySelector(hash);
-      if(!el) return;
-      setTimeout(()=> el.scrollIntoView({behavior:'smooth', block:'start'}), 50);
-    })();
-  </script>
 </body>
 </html>
