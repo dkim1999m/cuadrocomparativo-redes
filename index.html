@@ -1,321 +1,195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Cuadros comparativos técnicos</title>
-    <style>
-        :root {
-            --bg: #f6f8fb;
-            --card: #ffffff;
-            --text: #0f172a;
-            --muted: #475569;
-            --border: #e2e8f0;
-            --head: #eef2f7;
-        }
-
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-            background: var(--bg);
-            color: var(--text);
-            padding: 24px;
-        }
-
-        .wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            gap: 18px;
-        }
-
-        h1 {
-            margin: 0 0 8px 0;
-            font-size: 22px;
-            letter-spacing: .2px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, .06);
-        }
-
-        .card-header {
-            padding: 14px 16px;
-            border-bottom: 1px solid var(--border);
-            background: linear-gradient(180deg, #ffffff, #fbfdff);
-        }
-
-        .card-header h2 {
-            margin: 0;
-            font-size: 16px;
-            color: var(--text);
-        }
-
-        .table-wrap {
-            overflow: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 780px;
-        }
-
-        thead th {
-            background: var(--head);
-            color: var(--text);
-            font-weight: 700;
-            text-align: left;
-            padding: 12px 12px;
-            border-bottom: 1px solid var(--border);
-            font-size: 13.5px;
-        }
-
-        tbody td {
-            padding: 12px 12px;
-            border-bottom: 1px solid var(--border);
-            vertical-align: top;
-            font-size: 13.5px;
-            color: var(--text);
-            line-height: 1.35;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: 0;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .col-crit {
-            width: 22%;
-        }
-
-        .col-a,
-        .col-b {
-            width: 39%;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cuadros comparativos técnicos</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; line-height: 1.35; margin: 24px; }
+    h2 { margin: 28px 0 10px; font-size: 18px; }
+    .tabla-wrap { margin: 10px 0 28px; overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; min-width: 780px; }
+    th, td { border: 1px solid #cfcfcf; padding: 10px; vertical-align: top; }
+    th { font-weight: 700; text-align: left; }
+  </style>
 </head>
-
 <body>
-    <div class="wrap">
-        <h1>Cuadros comparativos técnicos</h1>
 
-        <!-- 1) Hardware: estación de trabajo vs servidor -->
-        <section class="card">
-            <div class="card-header">
-                <h2>1) Comparativo técnico de hardware: estación de trabajo y servidor de red</h2>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="col-crit">Criterio técnico</th>
-                            <th class="col-a">Estación de trabajo (Workstation)</th>
-                            <th class="col-b">Servidor de red (Network Server)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Procesadores y núcleos</strong></td>
-                            <td>Windows 11 Pro: hasta 2 procesadores físicos y 256 núcleos lógicos. Windows 11 Pro para
-                                Estaciones de Trabajo: hasta 4 procesadores físicos y 256 núcleos lógicos.</td>
-                            <td>Plataformas de 1 o 2 zócalos con alta densidad de núcleos y foco en cargas concurrentes.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Memoria máxima del sistema operativo</strong></td>
-                            <td>Windows 11 Home: 128 Gigabytes (GB). Windows 11 Pro: 2 Terabytes (TB). Windows 11
-                                Enterprise: 6 TB. Windows 11 Pro para Estaciones de Trabajo: 6 TB.</td>
-                            <td>En práctica de infraestructura empresarial reciente, servidores de red se implementan
-                                desde 128 GB hasta varios terabytes de memoria principal (RAM) para virtualización,
-                                bases de datos y servicios concurrentes.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Almacenamiento de alto rendimiento</strong></td>
-                            <td>Unidad de estado sólido (Solid-State Drive, SSD) con memoria no volátil exprés
-                                (Non-Volatile Memory Express, NVMe) para baja latencia local.</td>
-                            <td>Arreglo redundante de discos independientes (Redundant Array of Independent Disks,
-                                RAID), intercambio en caliente (Hot Swap) y controladoras empresariales.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Red y throughput</strong></td>
-                            <td>Red típica de 1 a 10 Gigabits por segundo (Gbps), priorizando estación individual.</td>
-                            <td>Múltiples tarjetas de red (Network Interface Card, NIC) de 10/25/40/100 Gbps para
-                                tráfico agregado.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Disponibilidad y gestión</strong></td>
-                            <td>Optimizada para productividad individual y rendimiento interactivo.</td>
-                            <td>Operación continua 24/7 con gestión fuera de banda (Out-of-Band Management) y
-                                controlador de administración de placa base (Baseboard Management Controller, BMC).</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+  <!-- 1) Comparativo técnico de hardware: estación de trabajo y servidor de red -->
+  <h2>1) Comparativo técnico de hardware: estación de trabajo y servidor de red</h2>
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio técnico</th>
+          <th>Estación de trabajo (Workstation)</th>
+          <th>Servidor de red (Network Server)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Procesadores y núcleos</td>
+          <td>Windows 11 Pro: hasta 2 procesadores físicos y 256 núcleos lógicos. Windows 11 Pro para Estaciones de Trabajo: hasta 4 procesadores físicos y 256 núcleos lógicos.</td>
+          <td>Plataformas de 1 o 2 zócalos con alta densidad de núcleos y foco en cargas concurrentes.</td>
+        </tr>
+        <tr>
+          <td>Memoria máxima del sistema operativo</td>
+          <td>Windows 11 Home: 128 Gigabytes (GB). Windows 11 Pro: 2 Terabytes (TB). Windows 11 Enterprise: 6 TB. Windows 11 Pro para Estaciones de Trabajo: 6 TB.</td>
+          <td>En práctica de infraestructura empresarial reciente, servidores de red se implementan desde 128 GB hasta varios terabytes de memoria principal (RAM) para virtualización, bases de datos y servicios concurrentes.</td>
+        </tr>
+        <tr>
+          <td>Almacenamiento de alto rendimiento</td>
+          <td>Unidad de estado sólido (Solid-State Drive, SSD) con memoria no volátil exprés (Non-Volatile Memory Express, NVMe) para baja latencia local.</td>
+          <td>Arreglo redundante de discos independientes (Redundant Array of Independent Disks, RAID), intercambio en caliente (Hot Swap) y controladoras empresariales.</td>
+        </tr>
+        <tr>
+          <td>Red y throughput</td>
+          <td>Red típica de 1 a 10 Gigabits por segundo (Gbps), priorizando estación individual.</td>
+          <td>Múltiples tarjetas de red (Network Interface Card, NIC) de 10/25/40/100 Gbps para tráfico agregado.</td>
+        </tr>
+        <tr>
+          <td>Disponibilidad y gestión</td>
+          <td>Optimizada para productividad individual y rendimiento interactivo.</td>
+          <td>Operación continua 24/7 con gestión fuera de banda (Out-of-Band Management) y controlador de administración de placa base (Baseboard Management Controller, BMC).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <!-- 2) Windows 11 vs Windows Server 2025 Essentials -->
-        <section class="card">
-            <div class="card-header">
-                <h2>2) Comparativo técnico: Windows 11 y Windows Server 2025 Essentials</h2>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="col-crit">Criterio técnico</th>
-                            <th class="col-a">Windows 11 (Client Operating System, OS)</th>
-                            <th class="col-b">Windows Server 2025 Essentials (Server Operating System, OS)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Rol de plataforma</strong></td>
-                            <td>Sistema operativo cliente para punto terminal (Endpoint).</td>
-                            <td>Sistema operativo servidor para núcleo de servicios de red.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Servicios principales</strong></td>
-                            <td>Productividad, aplicaciones de usuario, desarrollo local.</td>
-                            <td>Identidad, autenticación, archivos, impresión y administración central.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Parámetros de memoria</strong></td>
-                            <td>Según edición: 128 GB, 2 TB o 6 TB.</td>
-                            <td>Orientado a memoria de servidor y carga sostenida multiusuario.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Requisitos mínimos de instalación</strong></td>
-                            <td>Referencia mínima oficial de Windows 11: 4 GB de memoria principal (RAM) y 64 GB de
-                                almacenamiento; en estaciones de trabajo técnicas se implementa normalmente desde 32 GB
-                                para cargas profesionales.</td>
-                            <td>Server Core: 2 GB de memoria principal (Random Access Memory, RAM). Experience with
-                                Desktop: recomendación de 4 GB. Almacenamiento mínimo: 32 GB.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Escala organizacional</strong></td>
-                            <td>Orientado a equipo individual o parque cliente empresarial.</td>
-                            <td>Referencia funcional en Essentials: hasta 25 usuarios y 50 dispositivos.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+  <!-- 2) Comparativo técnico: Windows 11 y Windows Server 2025 Essentials -->
+  <h2>2) Comparativo técnico: Windows 11 y Windows Server 2025 Essentials</h2>
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio técnico</th>
+          <th>Windows 11 (Client Operating System, OS)</th>
+          <th>Windows Server 2025 Essentials (Server Operating System, OS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rol de plataforma</td>
+          <td>Sistema operativo cliente para punto terminal (Endpoint).</td>
+          <td>Sistema operativo servidor para núcleo de servicios de red.</td>
+        </tr>
+        <tr>
+          <td>Servicios principales</td>
+          <td>Productividad, aplicaciones de usuario, desarrollo local.</td>
+          <td>Identidad, autenticación, archivos, impresión y administración central.</td>
+        </tr>
+        <tr>
+          <td>Parámetros de memoria</td>
+          <td>Según edición: 128 GB, 2 TB o 6 TB.</td>
+          <td>Orientado a memoria de servidor y carga sostenida multiusuario.</td>
+        </tr>
+        <tr>
+          <td>Requisitos mínimos de instalación</td>
+          <td>Referencia mínima oficial de Windows 11: 4 GB de memoria principal (RAM) y 64 GB de almacenamiento; en estaciones de trabajo técnicas se implementa normalmente desde 32 GB para cargas profesionales.</td>
+          <td>Server Core: 2 GB de memoria principal (Random Access Memory, RAM). Experience with Desktop: recomendación de 4 GB. Almacenamiento mínimo: 32 GB.</td>
+        </tr>
+        <tr>
+          <td>Escala organizacional</td>
+          <td>Orientado a equipo individual o parque cliente empresarial.</td>
+          <td>Referencia funcional en Essentials: hasta 25 usuarios y 50 dispositivos.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <!-- 3) Ediciones Windows Server 2025 -->
-        <section class="card">
-            <div class="card-header">
-                <h2>3) Comparativo técnico de ediciones Windows Server 2025</h2>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Edición</th>
-                            <th>Licenciamiento</th>
-                            <th>Virtualización</th>
-                            <th>Acceso</th>
-                            <th>Costo y dato concreto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Windows Server 2025 Essentials</strong></td>
-                            <td>Esquema específico para pequeña empresa, común en canal de fabricante de equipo original
-                                (Original Equipment Manufacturer, OEM).</td>
-                            <td>Más limitada que Standard y Datacenter.</td>
-                            <td>Referencia de edición Essentials: diseñada para organizaciones pequeñas, con límite
-                                funcional típico de 25 usuarios y 50 dispositivos en documentación de licenciamiento.
-                            </td>
-                            <td>Referencia funcional: hasta 25 usuarios y 50 dispositivos.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Windows Server 2025 Standard</strong></td>
-                            <td>Licenciamiento por núcleos físicos (Core-Based Licensing).</td>
-                            <td>Virtualización moderada.</td>
-                            <td>Licencia de acceso de cliente (Client Access License, CAL) por usuario o dispositivo.
-                            </td>
-                            <td>Referencia comercial aproximada: 16 núcleos + 10 CAL alrededor de 1,848 Dólares
-                                Estadounidenses (United States Dollar, USD), variable por región.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Windows Server 2025 Datacenter</strong></td>
-                            <td>Licenciamiento por núcleos.</td>
-                            <td>Alta densidad de virtualización.</td>
-                            <td>CAL en escenarios aplicables.</td>
-                            <td>Referencia comercial: se adquiere mediante cotización de canal empresarial; el valor
-                                final se define por región, contrato de licenciamiento y volumen de núcleos.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Windows Server 2025 Datacenter: Azure Edition</strong></td>
-                            <td>Modelo ligado a escenarios híbridos en Microsoft Azure.</td>
-                            <td>Optimizada para nube híbrida y automatización.</td>
-                            <td>Condiciones según servicio contratado.</td>
-                            <td>Referencia de costo: se factura por consumo de recursos en nube (Cloud Consumption
-                                Model), considerando tiempo de cómputo, almacenamiento y servicios asociados.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+  <!-- 3) Comparativo técnico de ediciones Windows Server 2025 -->
+  <h2>3) Comparativo técnico de ediciones Windows Server 2025</h2>
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Edición</th>
+          <th>Licenciamiento</th>
+          <th>Virtualización</th>
+          <th>Acceso</th>
+          <th>Costo y dato concreto</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Windows Server 2025 Essentials</td>
+          <td>Esquema específico para pequeña empresa, común en canal de fabricante de equipo original (Original Equipment Manufacturer, OEM).</td>
+          <td>Más limitada que Standard y Datacenter.</td>
+          <td>Referencia de edición Essentials: diseñada para organizaciones pequeñas, con límite funcional típico de 25 usuarios y 50 dispositivos en documentación de licenciamiento.</td>
+          <td>Referencia funcional: hasta 25 usuarios y 50 dispositivos.</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2025 Standard</td>
+          <td>Licenciamiento por núcleos físicos (Core-Based Licensing).</td>
+          <td>Virtualización moderada.</td>
+          <td>Licencia de acceso de cliente (Client Access License, CAL) por usuario o dispositivo.</td>
+          <td>Referencia comercial aproximada: 16 núcleos + 10 CAL alrededor de 1,848 Dólares Estadounidenses (United States Dollar, USD), variable por región.</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2025 Datacenter</td>
+          <td>Licenciamiento por núcleos.</td>
+          <td>Alta densidad de virtualización.</td>
+          <td>CAL en escenarios aplicables.</td>
+          <td>Referencia comercial: se adquiere mediante cotización de canal empresarial; el valor final se define por región, contrato de licenciamiento y volumen de núcleos.</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2025 Datacenter: Azure Edition</td>
+          <td>Modelo ligado a escenarios híbridos en Microsoft Azure.</td>
+          <td>Optimizada para nube híbrida y automatización.</td>
+          <td>Condiciones según servicio contratado.</td>
+          <td>Referencia de costo: se factura por consumo de recursos en nube (Cloud Consumption Model), considerando tiempo de cómputo, almacenamiento y servicios asociados.</td>
+        </tr>
+        <tr>
+          <td>Comparativo de decisión</td>
+          <td>Standard favorece menor costo inicial en despliegues controlados.</td>
+          <td>Datacenter favorece expansión de máquinas virtuales (Virtual Machine, VM) a mediano plazo.</td>
+          <td>Ambas requieren estrategia de acceso y cumplimiento.</td>
+          <td>La decisión debe considerar costo total de propiedad (Total Cost of Ownership, TCO).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-        <!-- 4) Windows Server 2025 Standard vs Ubuntu Server 24.04.3 LTS -->
-        <section class="card">
-            <div class="card-header">
-                <h2>4) Comparativo técnico: Windows Server 2025 Standard y Ubuntu Server 24.04.3 Long Term Support</h2>
-            </div>
-            <div class="table-wrap">
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="col-crit">Criterio técnico</th>
-                            <th class="col-a">Windows Server 2025 Standard</th>
-                            <th class="col-b">Ubuntu Server 24.04.3 Long Term Support (LTS)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Modelo de licencia</strong></td>
-                            <td>Software propietario por núcleos + CAL.</td>
-                            <td>Licencia libre para sistema base; soporte empresarial opcional.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Costo total de propiedad</strong></td>
-                            <td>Mayor costo inicial de licencia con integración nativa Microsoft.</td>
-                            <td>Menor barrera de entrada en licencia; mayor peso en operación técnica.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Ciclo de soporte</strong></td>
-                            <td>Política oficial de ciclo de vida Microsoft para familia Server 2025.</td>
-                            <td>LTS con 5 años de mantenimiento estándar de seguridad.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Integración empresarial</strong></td>
-                            <td>Fortaleza en Directorio Activo (Active Directory, AD), Política de Grupo (Group Policy,
-                                GPO) y PowerShell.</td>
-                            <td>Fortaleza en automatización por interfaz de línea de comandos (Command-Line Interface,
-                                CLI), contenedores (Containers) y entornos nativos de nube (Cloud-Native).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Perfil recomendado</strong></td>
-                            <td>Organizaciones centradas en ecosistema Microsoft.</td>
-                            <td>Organizaciones que priorizan apertura, automatización y eficiencia de licenciamiento.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+  <!-- 4) Comparativo técnico: Windows Server 2025 Standard y Ubuntu Server 24.04.3 Long Term Support -->
+  <h2>4) Comparativo técnico: Windows Server 2025 Standard y Ubuntu Server 24.04.3 Long Term Support</h2>
+  <div class="tabla-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Criterio técnico</th>
+          <th>Windows Server 2025 Standard</th>
+          <th>Ubuntu Server 24.04.3 Long Term Support (LTS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Modelo de licencia</td>
+          <td>Software propietario por núcleos + CAL.</td>
+          <td>Licencia libre para sistema base; soporte empresarial opcional.</td>
+        </tr>
+        <tr>
+          <td>Costo total de propiedad</td>
+          <td>Mayor costo inicial de licencia con integración nativa Microsoft.</td>
+          <td>Menor barrera de entrada en licencia; mayor peso en operación técnica.</td>
+        </tr>
+        <tr>
+          <td>Ciclo de soporte</td>
+          <td>Política oficial de ciclo de vida Microsoft para familia Server 2025.</td>
+          <td>LTS con 5 años de mantenimiento estándar de seguridad.</td>
+        </tr>
+        <tr>
+          <td>Integración empresarial</td>
+          <td>Fortaleza en Directorio Activo (Active Directory, AD), Política de Grupo (Group Policy, GPO) y PowerShell.</td>
+          <td>Fortaleza en automatización por interfaz de línea de comandos (Command-Line Interface, CLI), contenedores (Containers) y entornos nativos de nube (Cloud-Native).</td>
+        </tr>
+        <tr>
+          <td>Perfil recomendado</td>
+          <td>Organizaciones centradas en ecosistema Microsoft.</td>
+          <td>Organizaciones que priorizan apertura, automatización y eficiencia de licenciamiento.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-    </div>
 </body>
-
 </html>
